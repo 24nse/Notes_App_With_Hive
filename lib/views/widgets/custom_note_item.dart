@@ -17,7 +17,7 @@ class NoteItem extends StatelessWidget {
               return const EditNoteView();
             }
             )
-          )
+          );
       },
       child: Container(
         padding: EdgeInsets.only(top: 24,bottom: 24,left: 16),
