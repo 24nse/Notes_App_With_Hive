@@ -7,31 +7,29 @@ import 'package:notes_app/views/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
-   AddNoteBottomSheet({super.key});
+  const AddNoteBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: SingleChildScrollView(
+    return BlocProvider(
+      create: (context) => AddNotesCubit(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
         child: BlocConsumer<AddNotesCubit, AddNotesState>(
           listener: (context, state) {
-        if(state is AddNoteFailure)
-        {
-          print("Failied ${state.errMessage}");
-        }
+            if (state is AddNoteFailure) {
+              print("Failied ${state.errMessage}");
+            }
 
-        if(state  is AddNoteSuccess)
-        {
-          Navigator.pop(context);
-        }
-          
+            if (state is AddNoteSuccess) {
+              Navigator.pop(context);
+            }
           },
           builder: (context, state) {
             return ModalProgressHUD(
-            
-              inAsyncCall: state is AddNoteLoading ? true:false,
-              child: AddNoteForm());
+              inAsyncCall: state is AddNoteLoading ? true : false,
+              child: const SingleChildScrollView(child: AddNoteForm()),
+            );
           },
         ),
       ),
